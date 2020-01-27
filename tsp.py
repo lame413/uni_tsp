@@ -178,7 +178,7 @@ if choice == 'r' or choice == 't':
   maxGen = 5000 
 else:
   maxGen = int(input("Maximum number of generations?"))
-#maxStagnation = 1000 # int(input("Maximum number of generations with no improvement?"))
+maxStagnation = int(input("Maximum number of generations with no improvement?"))
 
 mutationChance = 0.01
 if choice == 'r' or choice == 't':
@@ -235,7 +235,7 @@ newPop = population.copy()
 parents = ''
 stagnation = 0
 
-while generation < maxGen: #and stagnation < maxStagnation:
+while generation < maxGen and stagnation < maxStagnation:
   oldPop = newPop.copy()
   newPop = []
 
@@ -251,7 +251,7 @@ while generation < maxGen: #and stagnation < maxStagnation:
     stagnation = 0
     bestPath = tmpBestPath
 
-  # stagnation = stagnation + 1
+  stagnation = stagnation + 1
 
   if selection == 1:
     tmpPop = oldPop.copy()
@@ -275,7 +275,7 @@ while generation < maxGen: #and stagnation < maxStagnation:
     if random() < mutationChance:
       newPop[-1] = mutate(newPop[-1])
 
-  if len(population) > 200 or generation % 50 == 0:
+  if len(population) > 500 or generation % 200 == 0:
     print("Generation ", generation, ", best path so far: ", bestPath[0], sep='')
     if adaptiveMutation:
       print("Current mutation chance:", mutationChance)
